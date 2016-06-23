@@ -17,6 +17,7 @@ public class MainActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
@@ -25,7 +26,15 @@ public class MainActivity extends ActionBarActivity {
      * This method is called when the order button is clicked.
      */
     public void submitOrder(View view) {
-        displayPrice(order_quantity * 5);
+        double price = (Math.round(order_quantity * 5 * 1.0875 * 100)) / 100.0;
+        String message = "Total price: $" + price;
+        message += "\nThank you!";
+        TextView finalTextView = (TextView) findViewById(R.id.price_text_view);
+        displayMessage(message, finalTextView);
+    }
+
+    private void displayMessage(String message, TextView textView) {
+        textView.setText(message);
     }
 
     /**
