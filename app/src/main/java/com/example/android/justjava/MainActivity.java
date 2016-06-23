@@ -28,8 +28,6 @@ public class MainActivity extends ActionBarActivity {
     public void submitOrder(View view) {
 
         int price = calculatePrice(order_quantity);
-//        String priceMessage = "Total: $" + price;
-//        priceMessage += "\nThank you!";
         displayMessage(createOrderSummary(price));
     }
 
