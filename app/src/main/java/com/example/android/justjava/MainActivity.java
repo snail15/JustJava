@@ -1,11 +1,14 @@
 package com.example.android.justjava;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.NumberFormat;
 
@@ -15,7 +18,7 @@ import java.text.NumberFormat;
  */
 public class MainActivity extends ActionBarActivity {
 
-    private int order_quantity = 0;
+    private int order_quantity = 1;
 
 
     @Override
@@ -39,7 +42,15 @@ public class MainActivity extends ActionBarActivity {
         String userName = nameEditText.getText().toString();
 
         int price = calculatePrice(order_quantity,hasWhippedCream,hasChocolate);
-        displayMessage(createOrderSummary(price,hasWhippedCream,hasChocolate,userName));
+        //displayMessage(createOrderSummary(price,hasWhippedCream,hasChocolate,userName));
+
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setData(Uri.parse("mailto:")); // only email apps should handle this
+        intent.putExtra(Intent.EXTRA_TEXT, createOrderSummary(price,hasWhippedCream,hasChocolate,userName));
+        intent.putExtra(Intent.EXTRA_SUBJECT, "Order Summary");
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
     }
 
     /**
@@ -96,14 +107,25 @@ public class MainActivity extends ActionBarActivity {
 
 
     public void increment(View view) {
-        order_quantity += 1;
+        if (order_quantity >= 100){
+            order_quantity = 100;
+            Toast.makeText(this, "You can't order more than 100 coffees!",Toast.LENGTH_SHORT).show();
+        }
+        else {
+            order_quantity += 1;
+        }
         displayQuantity(order_quantity);
-        //displayPrice(order_quantity * 5);
     }
 
     public void decrement(View view) {
-        order_quantity -= 1;
+        if (order_quantity <= 0){
+            order_quantity = 0;
+            Toast.makeText(this, "Quantity can't be negative!",Toast.LENGTH_SHORT).show();
+        }
+        else{
+            order_quantity -= 1;
+        }
         displayQuantity(order_quantity);
-        //displayPrice(order_quantity * 5);
+
     }
 }

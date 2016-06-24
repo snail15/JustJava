@@ -4,5 +4,7 @@
     <string name="chocolate">Chocolate</string>
     <string name="enter_name">Enter Your Name</string>
     <string name="topping">Topping</string>
-    <string name="zero">0</string>
+    <string name="one">1</string>
+    <string name="zero_dollar">$0</string>
+    <string name="order_summary">Order Summary</string>
 </resources>
