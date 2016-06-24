@@ -47,7 +47,7 @@ public class MainActivity extends ActionBarActivity {
         Intent intent = new Intent(Intent.ACTION_SENDTO);
         intent.setData(Uri.parse("mailto:")); // only email apps should handle this
         intent.putExtra(Intent.EXTRA_TEXT, createOrderSummary(price,hasWhippedCream,hasChocolate,userName));
-        intent.putExtra(Intent.EXTRA_SUBJECT, "Order Summary");
+        intent.putExtra(Intent.EXTRA_SUBJECT, "Order Summary of " + userName);
         if (intent.resolveActivity(getPackageManager()) != null) {
             startActivity(intent);
         }
