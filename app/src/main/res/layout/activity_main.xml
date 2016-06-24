@@ -11,6 +11,14 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.android.justjava.MainActivity">
 
+    <EditText
+        android:id="@+id/name_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/enter_name"
+        android:layout_marginBottom="16dp"
+        android:inputType="textCapWords"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -61,7 +69,7 @@
             android:layout_toRightOf="@id/decrement_button"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
-            android:text="1"
+            android:text="@string/zero"
             android:textColor="@android:color/black"
             android:textSize="16sp" />
 

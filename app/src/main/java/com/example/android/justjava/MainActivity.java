@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.text.NumberFormat;
@@ -15,6 +16,7 @@ import java.text.NumberFormat;
 public class MainActivity extends ActionBarActivity {
 
     private int order_quantity = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +35,11 @@ public class MainActivity extends ActionBarActivity {
         CheckBox chocolateCheckBox = (CheckBox) findViewById(R.id.chocolate_checkbox);
         boolean hasChocolate = chocolateCheckBox.isChecked();
 
-        int price = calculatePrice(order_quantity);
-        displayMessage(createOrderSummary(price,hasWhippedCream,hasChocolate));
+        EditText nameEditText = (EditText) findViewById(R.id.name_edit_text);
+        String userName = nameEditText.getText().toString();
+
+        int price = calculatePrice(order_quantity,hasWhippedCream,hasChocolate);
+        displayMessage(createOrderSummary(price,hasWhippedCream,hasChocolate,userName));
     }
 
     /**
@@ -66,13 +71,20 @@ public class MainActivity extends ActionBarActivity {
      *
      * @param quantity is the number of cups of coffee ordered
      */
-    private int calculatePrice(int quantity) {
-        return quantity * 5;
+    private int calculatePrice(int quantity, boolean hasWhippedCream, boolean hasChocolate) {
+        int price = 5;
+        if (hasWhippedCream){
+            price += 1;
+        }
+        if (hasChocolate) {
+            price += 2;
+        }
+        return quantity * price;
     }
 
-    private String createOrderSummary (int price, boolean hasWhippedCream, boolean hasChocolate){
+    private String createOrderSummary (int price, boolean hasWhippedCream, boolean hasChocolate, String userName){
 
-        String message = "Name: Sungin Jung";
+        String message = "Name: " + userName;
         message += "\nWhipped Cream added: " + hasWhippedCream;
         message += "\nChocolate added: " + hasChocolate;
         message += "\nQuantity: " + order_quantity;
